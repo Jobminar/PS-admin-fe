@@ -1,31 +1,42 @@
 import React, { useState, useEffect } from 'react';
 
 const ReportedVoters = () => {
-  const [apiData, setApiData] = useState(null);
+  const [apiData, setApiData] = useState([]);
   const karyakarthaId = sessionStorage.getItem('karyakarths_id');
-  // set reportedvoters length
-
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://voters-be.onrender.com/getKaryakarthaId/${karyakarthaId}`);
-        const data = await response.json();
-        setApiData(data);
-        console.log('report voters data', data);
+        const karyakartha_Id = karyakarthaId;
+
+        const response = await fetch('https://voters-be.onrender.com/getReportsByKaryakarthaId', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ karyakartha_Id }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const { report } = await response.json();
+        setApiData(report);
+        // alert('Get successful');
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, [karyakarthaId]);  // Adding karyakarthaId to dependency array to re-run effect when it changes
+  }, [karyakarthaId]);
 
   return (
     <>
-    <h1>{karyakarthaId}</h1>
+      {/* <h1>{karyakarthaId}</h1> */}
       <div className='main-report-voter-con'>
-        {apiData && Array.isArray(apiData) ? (  // Check if apiData is an array
+        {Array.isArray(apiData) && apiData.length > 0 ? (
           <table className='report-voter-table'>
             <thead>
               <tr>
@@ -55,9 +66,6 @@ const ReportedVoters = () => {
         ) : (
           <p>No data available</p>
         )}
-      </div>
-      <div>
-        {/* <button onClick={downloadfile}>Download</button> */}
       </div>
     </>
   );
