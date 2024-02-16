@@ -1,0 +1,17 @@
+table{
+    margin: 2rem auto;
+}
+.report-incident-total-main-con h1{
+    text-align: center;
+    font-size: 30px;
+    line-height: 60px;
+    font-family: Inter;
+}
+.incident-image{
+    width: 10rem;
+    height: 10rem;
+}
+.incident-image img{
+    width: 100%;
+    height: 100%;
+}
