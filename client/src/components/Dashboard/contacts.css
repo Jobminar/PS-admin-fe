@@ -1,0 +1,106 @@
+
+
+.karyakartha-details {
+  font-family: "Bangers", cursive;
+}
+
+.karyakartha-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 24px;
+  color: white;
+  text-shadow: 2px 2px 4px black;
+  text-transform: uppercase;
+  background-image: linear-gradient(to right, red, yellow, blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.karyakartha-info {
+  font-size: 18px;
+  color: black;
+  margin: 10px 0;
+  border-left: 10px solid green;
+  padding-left: 10px;
+}
+
+.karyakartha-verified {
+  color: green;
+  font-weight: bold;
+}
+
+.karyakartha-not-verified {
+  color: red;
+  font-weight: bold;
+}
+
+.karyakartha-verified:hover,
+.karyakartha-not-verified:hover {
+  transform: scale(1.2);
+  transition: transform 0.3s;
+  box-shadow: 0 0 10px 5px currentColor;
+}
+
+
+
+
+
+
+.karyakartha-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .karyakartha-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .karyakartha-name {
+    flex: 1;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .karyakartha-phone {
+    flex: 1;
+    font-size: 16px;
+    color: #757575;
+  }
+  
+  .karyakartha-status {
+    margin-left: 10px;
+  }
+  
+
+  .karyakartha-details {
+    background-color: #f0f0f0;
+    transition: background-color 0.5s ease;
+  }
+  
+  .karyakartha-details:hover {
+    background-color: #e0e0e0;
+  }
+
+  .karyakartha-details {
+    background: linear-gradient(to right, #f0f0f0, #e0e0e0);
+    background-size: 200% 100%;
+    animation: gradient 5s infinite;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  
