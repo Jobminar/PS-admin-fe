@@ -2,14 +2,12 @@
 import React, { useEffect, useState } from "react";
 import "./karyakartha.css";
 import { useNavigate } from "react-router-dom";
-// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import MapComponent from "../Maps/Map";
 
 const Karyakartha = () => {
   const navigate = useNavigate();
   const [karyakarthaData, setKaryakarthaData] = useState([]);
-  const [selectedStatus, setSelectedStatus] = useState({});
   const [selectedkaryakartha, setselectedkaryakartha] = useState("");
-  // karyakartha data
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,10 +25,7 @@ const Karyakartha = () => {
     fetchData();
   }, []);
 
-  // status change
-
   const handleStatusChange = async (id, selectedValue) => {
-    console.log(id, selectedValue);
     try {
       const response = await fetch(
         `https://voters-be.onrender.com/verify/${id}`,
@@ -39,16 +34,11 @@ const Karyakartha = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          // body: JSON.stringify({ verified: selectedValue }),
         }
       );
 
       if (response.ok) {
-        alert("states verified");
-        setSelectedStatus((prevStatus) => ({
-          ...prevStatus,
-          [id]: selectedValue,
-        }));
+        alert("States verified");
         window.location.reload();
       } else {
         console.error("Failed to update status");
@@ -58,29 +48,16 @@ const Karyakartha = () => {
     }
   };
 
-  // handle view karyakartha
-
   const handleview = (karyakartha) => {
     setselectedkaryakartha(karyakartha);
     navigate("/viewpage", { state: { selectedkaryakartha: karyakartha } });
-    console.log(karyakartha, "karyakartha");
-    // karyakrtha id
     const karyakarthaId = karyakartha._id;
-    console.log("karyakartha", karyakarthaId);
-    // set sessionstorage
     sessionStorage.setItem("karyakarths_id", karyakarthaId);
   };
-
-  // handle add karyakartha
 
   const handleaddkaryakartha = () => {
     navigate("/addkaryakartha");
   };
-
-  // set karyakartha length
-  const karyakarthalength = karyakarthaData.length;
-  sessionStorage.setItem("karyakarthalength", karyakarthalength);
-  console.log("karyakarthalength", karyakarthalength);
 
   return (
     <>
@@ -97,39 +74,36 @@ const Karyakartha = () => {
               <path
                 d="M15 18L9 12L15 6"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </div>
-          <h1>Non verified Karyakarthas list</h1>
+          <h1>Non-verified Karyakarthas list</h1>
           <button onClick={handleaddkaryakartha}>Add Karyakartha</button>
         </div>
 
-        <table border="1">
+        <table className="karyakartha-table" border="1">
           <thead>
             <tr>
               <th>Name</th>
               <th>Phone Number</th>
-              <th>Non verified List</th>
+              <th>Non-verified List</th>
+              <th>Verify</th>
             </tr>
           </thead>
           <tbody>
             {karyakarthaData
-              .filter((karyakarta) => !karyakarta.verified) // Filter entries where verified is false
+              .filter((karyakarta) => !karyakarta.verified)
               .map((karyakarta, index) => (
                 <tr key={index}>
                   <td>{karyakarta.username}</td>
                   <td>{karyakarta.phone}</td>
-                  <td className="verified-button">
+                  <td className="verified-button">Not verified</td>
+                  <td>
                     <button
-                      onClick={() =>
-                        handleStatusChange(
-                          karyakarta._id,
-                          karyakarta.verified ? "true" : "false"
-                        )
-                      }
+                      onClick={() => handleStatusChange(karyakarta._id, "true")}
                     >
                       Verify now
                     </button>
@@ -140,29 +114,37 @@ const Karyakartha = () => {
         </table>
       </div>
 
-      {/* display all karyakarthas */}
       <div className="getkaryakartha-con">
-        <h1>Karyakarthas list</h1>
-        <table border="1">
+        <h1>Verified Karyakarthas list</h1>
+        <table className="karyakartha-table" border="1">
           <thead>
             <tr>
               <th>Name</th>
               <th>Phone Number</th>
               <th>Status</th>
-              <th>View karyakartha</th>
+              <th>View Karyakartha</th>
+              <th>Map</th>
             </tr>
           </thead>
           <tbody>
-            {karyakarthaData.map((karyakarta, index) => (
-              <tr key={index}>
-                <td>{karyakarta.username}</td>
-                <td>{karyakarta.phoneNo}</td>
-                <td>{karyakarta.verified ? "verified" : "Not verified"}</td>
-                <td className="view" onClick={() => handleview(karyakarta)}>
-                  View
-                </td>
-              </tr>
-            ))}
+            {karyakarthaData
+              .filter((karyakarta) => karyakarta.verified)
+              .map((karyakarta, index) => (
+                <tr key={index}>
+                  <td>{karyakarta.username}</td>
+                  <td>{karyakarta.phoneNo}</td>
+                  <td>Verified</td>
+                  <td className="view" onClick={() => handleview(karyakarta)}>
+                    View
+                  </td>
+                  <td className="map-container">
+                    <MapComponent
+                      latitude={karyakarta.latitude}
+                      longitude={karyakarta.longitude}
+                    />
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
