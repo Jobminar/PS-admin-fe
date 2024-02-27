@@ -25,10 +25,10 @@ const Contactlist = ({ handleview }) => {
         >
           <div className="flex flex-col">
             <div className="karyakartha-name font-semibold text-lg">
-              {karyakartha.name}
+              {karyakartha.username}
             </div>
             <div className="karyakartha-phone text-gray-600">
-              {karyakartha.phone}
+              {karyakartha.phoneNo}
             </div>
           </div>
           <div className="karyakartha-status">
