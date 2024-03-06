@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Contactlist = ({ handleview }) => {
+const Contactlist = ({ handleKaryakarthaSelect }) => {
   const [karyakarthas, setKaryakarthas] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Contactlist = ({ handleview }) => {
         <li
           key={karyakartha._id}
           className="karyakartha-item flex items-center justify-between p-3 my-2 rounded-md cursor-pointer bg-green-50 hover:bg-green-100 transition-all duration-300"
-          onClick={() => handleview(karyakartha)}
+          onClick={() => handleKaryakarthaSelect(karyakartha)}
         >
           <div className="flex flex-col">
             <div className="karyakartha-name font-semibold text-lg">

@@ -1,5 +1,5 @@
 import "./App.css";
-import Chat from "./components/Chat";
+import Chat from "./components/Dashboard/ChatApp";
 import Home from "./components/Home/Home";
 import ReportedVoter from "./components/Voters/Voters";
 import Incident from "./components/Incidents/Incidents";
@@ -15,21 +15,18 @@ function App() {
     // Wrap your App component with the BrowserRouter componen
     <>
       <BrowserRouter>
-     
-     <Header/>
-     <Routes>
-       <Route path="/karyakartha" element={<Karyakartha />} />
-       <Route path="/notifications" element={<Chat />} />
-       <Route path="/reportedvoters" element={<ReportedVoter />} />
-       <Route path="/reportedincidents" element={<Incident />} />
-       <Route path="/" element={<Home />} index />
-       <Route path="/viewpage" element={<Viewkaryakartha/>}/>
-       <Route path="/addkaryakartha" element={<Addkaryakartha />} index />
-     </Routes>
-  
+        <Header />
+        <Routes>
+          <Route path="/karyakartha" element={<Karyakartha />} />
+          <Route path="/notifications" element={<Chat />} />
+          <Route path="/reportedvoters" element={<ReportedVoter />} />
+          <Route path="/reportedincidents" element={<Incident />} />
+          <Route path="/" element={<Home />} index />
+          <Route path="/viewpage" element={<Viewkaryakartha />} />
+          <Route path="/addkaryakartha" element={<Addkaryakartha />} index />
+        </Routes>
       </BrowserRouter>
     </>
-    
   );
 }
 
