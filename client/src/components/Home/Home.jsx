@@ -4,13 +4,18 @@ import appLogo from "../../assets/images/politicalsaradi.png";
 import modi from '../../assets/images/modi.jpg'
 import bjp from '../../assets/images/bjp.jpg'
 
+import MapComponent from "../Maps/Map";
 const Home = () => {
   // get reportedvoters length
-  const storedReportedVotersLength = sessionStorage.getItem('reportedvoterslength');
+  const storedReportedVotersLength = sessionStorage.getItem(
+    "reportedvoterslength"
+  );
   // get reported incidents length
-  const reportedincidentlength = sessionStorage.getItem('reportedincidentlength')
+  const reportedincidentlength = sessionStorage.getItem(
+    "reportedincidentlength"
+  );
   // getb karyakartha length
-  const karyakarthaslength = sessionStorage.getItem('karyakarthalength')
+  const karyakarthaslength = sessionStorage.getItem("karyakarthalength");
 
   return (
     <div className="container mx-auto p-4 bg-gray-100 ">
@@ -22,6 +27,7 @@ const Home = () => {
             alt="Hero"
             className="w-full h-full object-cover"
           />
+          <MapComponent />
         </div>
         {/* // Define the content of the hero section */}
         <div className="w-full md:w-1/2">
@@ -59,7 +65,9 @@ const Home = () => {
           <h3 className="text-2xl font-bold text-gray-800">
             Reported Voters Till Now
           </h3>
-          <p className="text-lg text-gray-600 mt-2">{storedReportedVotersLength}</p>
+          <p className="text-lg text-gray-600 mt-2">
+            {storedReportedVotersLength}
+          </p>
         </div>
         {/* // Define the third feature of the component */}
         <div className="card p-4 shadow-md">

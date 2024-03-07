@@ -1,106 +1,96 @@
 // Karyakartha.jsx
 import React, { useEffect, useState } from "react";
-import './karyakartha.css';
+import "./karyakartha.css";
 import { useNavigate } from "react-router-dom";
-// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+import MapComponent from "../Maps/Map";
 
 const Karyakartha = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [karyakarthaData, setKaryakarthaData] = useState([]);
-  const [selectedStatus, setSelectedStatus] = useState({});
-  const [selectedkaryakartha,setselectedkaryakartha] = useState('')
-// karyakartha data
+  const [selectedkaryakartha, setselectedkaryakartha] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://voters-be.onrender.com/getallkaryakarta');
+        const response = await fetch(
+          "https://voters-be.onrender.com/getallkaryakarta"
+        );
         const data = await response.json();
         setKaryakarthaData(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, []);
 
-  // status change
-
   const handleStatusChange = async (id, selectedValue) => {
-    console.log(id , selectedValue)
     try {
-      const response = await fetch(`https://voters-be.onrender.com/verify/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // body: JSON.stringify({ verified: selectedValue }),
-      });
+      const response = await fetch(
+        `https://voters-be.onrender.com/verify/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
-        alert('states verified')
-        setSelectedStatus(prevStatus => ({
-          ...prevStatus,
-          [id]: selectedValue,
-         
-        }));
+        alert("States verified");
         window.location.reload();
       } else {
-        console.error('Failed to update status');
+        console.error("Failed to update status");
       }
     } catch (error) {
-      console.error('Error updating status:', error);
+      console.error("Error updating status:", error);
     }
   };
 
-
-  // handle view karyakartha
-
   const handleview = (karyakartha) => {
     setselectedkaryakartha(karyakartha);
-    navigate('/viewpage', { state: { selectedkaryakartha: karyakartha } });
-    console.log(karyakartha,'karyakartha')
-    // karyakrtha id 
-    const karyakarthaId = karyakartha._id
-    console.log('karyakartha', karyakarthaId)
-    // set sessionstorage 
-    sessionStorage.setItem('karyakarths_id', karyakarthaId);
+    navigate("/viewpage", { state: { selectedkaryakartha: karyakartha } });
+    const karyakarthaId = karyakartha._id;
+    sessionStorage.setItem("karyakarths_id", karyakarthaId);
   };
 
-
-  // handle add karyakartha
-
-  const handleaddkaryakartha=()=>{
-       navigate('/addkaryakartha')
-  }
-
-
-  // set karyakartha length
-  const karyakarthalength = karyakarthaData.length
-  sessionStorage.setItem('karyakarthalength', karyakarthalength)
-  console.log('karyakarthalength', karyakarthalength)
+  const handleaddkaryakartha = () => {
+    navigate("/addkaryakartha");
+  };
 
   return (
     <>
       <div className="getkaryakartha-con">
         <div className="head-flex">
           <div>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 18L9 12L15 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
-           <h1>Non verified Karyakarthas list</h1>
-           <button onClick={handleaddkaryakartha}>Add Karyakartha</button>
+          <h1>Non-verified Karyakarthas list</h1>
+          <button onClick={handleaddkaryakartha}>Add Karyakartha</button>
         </div>
-    
-        <table border="1">
+
+        <table className="karyakartha-table" border="1">
           <thead>
             <tr>
               <th>Name</th>
               <th>Phone Number</th>
-              <th>Non verified List</th>
+              <th>Non-verified List</th>
+              <th>Verify</th>
             </tr>
           </thead>
           <tbody>
@@ -122,29 +112,37 @@ const Karyakartha = () => {
         </table>
       </div>
 
-  {/* display all karyakarthas */}
       <div className="getkaryakartha-con">
-          <h1>Karyakarthas list</h1>
-        <table border="1">
+        <h1>Verified Karyakarthas list</h1>
+        <table className="karyakartha-table" border="1">
           <thead>
             <tr>
               <th>Name</th>
               <th>Phone Number</th>
               <th>Status</th>
-              <th>View karyakartha</th>
+              <th>View Karyakartha</th>
+              <th>Map</th>
             </tr>
           </thead>
           <tbody>
-          {karyakarthaData
-            .map((karyakarta, index) => (
-              <tr key={index}>
-                <td>{karyakarta.username}</td>
-                <td>{karyakarta.phoneNo}</td>
-                <td>{karyakarta.verified ? 'verified' : 'Not verified'}</td>
-                <td className="view" onClick={() => handleview(karyakarta)}>View</td>
-              </tr>
-          ))}
-
+            {karyakarthaData
+              .filter((karyakarta) => karyakarta.verified)
+              .map((karyakarta, index) => (
+                <tr key={index}>
+                  <td>{karyakarta.username}</td>
+                  <td>{karyakarta.phoneNo}</td>
+                  <td>Verified</td>
+                  <td className="view" onClick={() => handleview(karyakarta)}>
+                    View
+                  </td>
+                  <td className="map-container">
+                    <MapComponent
+                      latitude={karyakarta.latitude}
+                      longitude={karyakarta.longitude}
+                    />
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
