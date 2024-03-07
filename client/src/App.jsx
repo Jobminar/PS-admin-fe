@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Home/Header";
 import Viewkaryakartha from "./components/Karyakarthas/viewkaryakartha";
 import Addkaryakartha from "./components/Karyakarthas/addkaryakartha";
+import Updateprofile from "./components/Karyakarthas/updateprofile";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/reportedincidents" element={<Incident />} />
           <Route path="/" element={<Home />} index />
           <Route path="/viewpage" element={<Viewkaryakartha />} />
+          <Route path="/updateprofile" element={<Updateprofile />} />
           <Route path="/addkaryakartha" element={<Addkaryakartha />} index />
         </Routes>
       </BrowserRouter>

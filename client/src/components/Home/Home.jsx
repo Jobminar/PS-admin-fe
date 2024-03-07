@@ -27,7 +27,7 @@ const Home = () => {
             alt="Hero"
             className="w-full h-full object-cover"
           />
-          <MapComponent />
+          {/* <MapComponent /> */}
         </div>
         {/* // Define the content of the hero section */}
         <div className="w-full md:w-1/2">

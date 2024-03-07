@@ -58,5 +58,5 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: ['react-refresh'],
 };

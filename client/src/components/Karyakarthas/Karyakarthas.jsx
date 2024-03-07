@@ -8,6 +8,7 @@ const Karyakartha = () => {
   const navigate = useNavigate();
   const [karyakarthaData, setKaryakarthaData] = useState([]);
   const [selectedkaryakartha, setselectedkaryakartha] = useState("");
+  const [selectedkaryakarthaupdate, setselectedkaryakarthaupdate] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,6 +55,15 @@ const Karyakartha = () => {
     const karyakarthaId = karyakartha._id;
     sessionStorage.setItem("karyakarths_id", karyakarthaId);
   };
+
+  const handleupdate = (karyakartha) => {
+    setselectedkaryakarthaupdate(karyakartha);
+    navigate("/updateprofile", { state: { selectedkaryakarthaupdate: karyakartha } });
+    const karyakarthaId = karyakartha._id;
+    sessionStorage.setItem("karyakarths_id_update", karyakarthaId);
+  };
+
+
 
   const handleaddkaryakartha = () => {
     navigate("/addkaryakartha");
@@ -121,7 +131,7 @@ const Karyakartha = () => {
               <th>Phone Number</th>
               <th>Status</th>
               <th>View Karyakartha</th>
-              <th>Map</th>
+              <th>Update profile</th>
             </tr>
           </thead>
           <tbody>
@@ -135,11 +145,8 @@ const Karyakartha = () => {
                   <td className="view" onClick={() => handleview(karyakarta)}>
                     View
                   </td>
-                  <td className="map-container">
-                    <MapComponent
-                      latitude={karyakarta.latitude}
-                      longitude={karyakarta.longitude}
-                    />
+                  <td className="update-profile" onClick={() => handleupdate(karyakarta)}>
+                    Update profile
                   </td>
                 </tr>
               ))}
