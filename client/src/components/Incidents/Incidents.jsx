@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './incidents.css'
+import './incidents.css';
+import * as XLSX from 'xlsx';
 
 const Incidents = () => {
   const [incidentData, setIncidentData] = useState([]);
@@ -18,38 +19,51 @@ const Incidents = () => {
     fetchData();
   }, []); 
 
-    // setitem incidents voters length
+  const downloadIncidents = () => {
+    // Extracting only the required fields (excluding 'image')
+    const excelData = incidentData.map(({ incident, message }) => ({ incident, message }));
 
-    const reportedincidentslength = incidentData.length
-    sessionStorage.setItem('reportedincidentlength', reportedincidentslength);
-    console.log('reportedincidentslength' , reportedincidentslength)
+    // Creating a worksheet
+    const ws = XLSX.utils.json_to_sheet(excelData);
+
+    // Creating a workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Incident Data');
+
+    // Saving the file
+    XLSX.writeFile(wb, 'incident_data.xlsx');
+  };
+
+  const reportedincidentslength = incidentData.length;
+  sessionStorage.setItem('reportedincidentlength', reportedincidentslength);
 
   return (
     <>
       <div className='report-incident-total-main-con'>
         <h1>Reported Incidents</h1>
+        <div className='download-button'>
+            <button type="button" onClick={downloadIncidents}>Download in Exel</button>
+        </div>
+        
         {incidentData.length > 0 ? (
           <table className='incident-table'>
             <thead>
               <tr>
-               
                 <th>Incident</th>
                 <th>Message</th>
-                 <th>Image</th>
-                {/* Add more table headers as needed */}
+                <th>Image</th>
+                {/* Remove the 'Image' header */}
               </tr>
             </thead>
             <tbody>
               {incidentData.map((incident, index) => (
                 <tr key={index}>
-  
-                  
                   <td>{incident.incident}</td>
                   <td>{incident.message}</td>
                   <td className='incident-image'>
                     <img src={`data:image/png;base64, ${incident.image}`} alt={`Item ${incident.incident}`} />
                   </td>
-                  {/* Add more table cells as needed */}
+                  {/* Remove the cell for 'image' */}
                 </tr>
               ))}
             </tbody>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './voters.css'
+import * as XLSX from 'xlsx';
 
 const Voters = () => {
   const [reportvotersData, setreportvotersData] = useState([]);
@@ -19,6 +20,23 @@ const Voters = () => {
     fetchData();
   }, []); 
 
+  // download reports
+
+  const downloadvoters = () => {
+    // Extracting only the required fields (excluding 'image')
+    const excelData = reportvotersData.map(({ houseNumber,numberOfVoters, pointOfContact ,comments , contactDetails , selectIssue  }) => ({houseNumber,numberOfVoters, pointOfContact ,comments , contactDetails , selectIssue   }));
+
+    // Creating a worksheet
+    const ws = XLSX.utils.json_to_sheet(excelData);
+
+    // Creating a workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Incident Data');
+
+    // Saving the file
+    XLSX.writeFile(wb, 'incident_data.xlsx');
+  };
+
   // setitem reporter voters length
 
   const reportedvoterslength = reportvotersData.length
@@ -29,6 +47,9 @@ const Voters = () => {
     <>
     <div className='report-incident-total-main-con'>
       <h1>Reported Voters</h1>
+      <div className='download-button'>
+            <button type="button" onClick={downloadvoters}>Download in Exel</button>
+        </div>
       {reportvotersData.length > 0 ? (
         <table className='reported-voters-table'>
           <thead>

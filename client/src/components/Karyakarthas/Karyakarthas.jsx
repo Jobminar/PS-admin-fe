@@ -109,7 +109,7 @@ const Karyakartha = () => {
             .map((karyakarta, index) => (
               <tr key={index}>
                 <td>{karyakarta.username}</td>
-                <td>{karyakarta.phone}</td>
+                <td>{karyakarta.phoneNo}</td>
                 <td className="verified-button">
                   <button onClick={() => handleStatusChange(karyakarta._id, karyakarta.verified ? 'true' : 'false')}>
                     Verify now
