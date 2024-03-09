@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import appLogo from "../../assets/images/politicalsaradi.png";
+import modi from '../../assets/images/modi.jpg'
+import bjp from '../../assets/images/bjp.jpg'
+
 import MapComponent from "../Maps/Map";
 const Home = () => {
   // get reportedvoters length
@@ -15,11 +18,16 @@ const Home = () => {
   const karyakarthaslength = sessionStorage.getItem("karyakarthalength");
 
   return (
-    <div className="container mx-auto p-4 bg-gray-100">
+    <div className="container mx-auto p-4 bg-gray-100 ">
       <div className="flex flex-col md:flex-row items-center justify-center py-8 space-y-4 md:space-y-0 md:space-x-8">
         {/* // Define the image of the hero section */}
         <div className="w-full md:w-1/2">
-          <MapComponent />
+          <img
+            src={modi}
+            alt="Hero"
+            className="w-full h-full object-cover"
+          />
+          {/* <MapComponent /> */}
         </div>
         {/* // Define the content of the hero section */}
         <div className="w-full md:w-1/2">
@@ -74,7 +82,7 @@ const Home = () => {
         {/* // Define the image of the testimonial section */}
         <div className="w-full md:w-1/2">
           <img
-            src="testimonial.jpg"
+            src={bjp}
             alt="Testimonial"
             className="w-full h-full object-cover"
           />

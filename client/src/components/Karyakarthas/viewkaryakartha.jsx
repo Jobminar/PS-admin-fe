@@ -48,7 +48,7 @@ const Viewkaryakartha = () => {
                 {selectedkaryakartha && (
                 <div style={{textAlign:'center'}} className='sub-karyakartha-con'>
                     <div> Karyakartha Name : {selectedkaryakartha.username}</div>
-                    <div>Contact number : {selectedkaryakartha.phone}</div>
+                    <div>Contact number : {selectedkaryakartha.phoneNo}</div>
                 {/* <Button variant='contained' onClick={()=>navigate("/")}>Close</Button> */}
                 </div>
             )}

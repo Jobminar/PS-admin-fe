@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import * as XLSX from 'xlsx';
 
 const ReportedIncidents = () => {
   const [incidentsApiData, setIncidentsApiData] = useState([]);
@@ -33,9 +34,30 @@ const ReportedIncidents = () => {
     fetchData();
   }, [karyakarthaId]);
 
+  // download report incidents
+
+  const downloadIncidents = () => {
+    // Extracting only the required fields (excluding 'image')
+    const excelData = incidentsApiData.map(({ incident, message }) => ({ incident, message }));
+
+    // Creating a worksheet
+    const ws = XLSX.utils.json_to_sheet(excelData);
+
+    // Creating a workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Incident Data');
+
+    // Saving the file
+    XLSX.writeFile(wb, 'incident_data.xlsx');
+  };
+
+
   return (
     <>
       {/* <h1>{karyakarthaId}</h1> */}
+      <div className='download-button'>
+            <button type="button" onClick={downloadIncidents}>Download in Exel</button>
+        </div>
       <div className='main-report-voter-con'>
         {Array.isArray(incidentsApiData) && incidentsApiData.length > 0 ? (
           <table className='report-voter-table'>
