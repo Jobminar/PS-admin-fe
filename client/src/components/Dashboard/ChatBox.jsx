@@ -77,7 +77,7 @@ const ChatBox = ({ selectedKaryakartha }) => {
     }
 
     try {
-      const formattedMessage = `Namasthe ${selectedKaryakartha.username} ${message}`;
+      const formattedMessage = `${selectedKaryakartha.username} ${message}`;
 
       await axios.post("https://voters-be.onrender.com/postmessage", {
         username,
