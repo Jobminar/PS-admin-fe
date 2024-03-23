@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import MapComponent from "../../Maps/Map";
+import "./Maps.css"; // Import the external CSS file
 
 const Maps = () => {
   return (
-    <div>maps</div>
-  )
-}
+    <div id="maps">
+      <MapComponent />
+    </div>
+  );
+};
 
-export default Maps
+export default Maps;

@@ -1,6 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import autoAnimate from "@formkit/auto-animate";
 import "./contacts.css";
+import PropTypes from "prop-types";
+
+// Define an interface for the expected Karyakartha object
 
 const KaryakarthaDetails = ({ selectedKaryakartha, onKaryakarthaSelect }) => {
   // Use useRef to create a reference to the parent element
@@ -57,16 +60,20 @@ const KaryakarthaDetails = ({ selectedKaryakartha, onKaryakarthaSelect }) => {
         <strong>Phone:</strong> {selectedKaryakartha.phoneNo}
       </p>
       <p className="karyakartha-info">
-        <strong>Area:</strong> {selectedKaryakartha.area}
+        <strong>Area:</strong> {selectedKaryakartha.area || "N/A"}{" "}
+        {/* Display N/A for missing area */}
       </p>
       <p className="karyakartha-info">
-        <strong>Lead:</strong> {selectedKaryakartha.lead}
+        <strong>Lead:</strong> {selectedKaryakartha.lead || "N/A"}{" "}
+        {/* Display N/A for missing lead */}
       </p>
       <p className="karyakartha-info">
-        <strong>Assembly:</strong> {selectedKaryakartha.assembly}
+        <strong>Assembly:</strong> {selectedKaryakartha.assembly || "N/A"}{" "}
+        {/* Display N/A for missing assembly */}
       </p>
       <p className="karyakartha-info">
-        <strong>Parliament:</strong> {selectedKaryakartha.parlament}
+        <strong>Parliament:</strong> {selectedKaryakartha.parlament || "N/A"}{" "}
+        {/* Display N/A for missing parliament */}
       </p>
       <p className="karyakartha-info">
         <strong>Verified:</strong>{" "}
@@ -78,6 +85,19 @@ const KaryakarthaDetails = ({ selectedKaryakartha, onKaryakarthaSelect }) => {
       </p>
     </div>
   );
+};
+
+KaryakarthaDetails.propTypes = {
+  selectedKaryakartha: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    phoneNo: PropTypes.string.isRequired,
+    area: PropTypes.string,
+    lead: PropTypes.string,
+    assembly: PropTypes.string,
+    parlament: PropTypes.string,
+    verified: PropTypes.bool.isRequired,
+  }).isRequired,
+  onKaryakarthaSelect: PropTypes.func.isRequired,
 };
 
 export default KaryakarthaDetails;
