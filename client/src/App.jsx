@@ -10,6 +10,8 @@ import Header from "./components/Home/Header";
 import Viewkaryakartha from "./components/Karyakarthas/viewkaryakartha";
 import Addkaryakartha from "./components/Karyakarthas/addkaryakartha";
 import Updateprofile from "./components/Karyakarthas/updateprofile";
+import Voters from "./GetVoters/Voters";
+import Chandra from "./GetVoters/Chandra";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Routes>
           <Route path="/karyakartha" element={<Karyakartha />} />
           <Route path="/notifications" element={<Chat />} />
+          <Route path="/voters" element={<Voters />} /> 
+          <Route path="/chandra" element={<Chandra />} />
           <Route path="/reportedvoters" element={<ReportedVoter />} />
           <Route path="/reportedincidents" element={<Incident />} />
           <Route path="/" element={<Home />} index />

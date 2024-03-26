@@ -1,0 +1,12 @@
+.voters-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .voters-table th,
+  .voters-table td {
+    padding: 8px;
+    border: 1px solid #dddddd;
+    text-align: center;
+  }
+  
