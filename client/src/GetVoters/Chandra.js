@@ -62,7 +62,7 @@ const Chandra = () => {
               <p>VillAGE:{person.VillAGE}</p>
               <p>H_NO:{person.H_NO}</p>
               <p>R_TYPE:{person.R_TYPE}</p>
-          {/* Add other fields as needed */}
+    
           </Card>
         </div>
       )}
